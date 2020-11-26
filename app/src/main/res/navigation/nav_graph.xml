@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_main2settings"
             app:destination="@id/mySettingsFragment" />
+        <action
+            android:id="@+id/action_main2history"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/mySettingsFragment"
@@ -20,6 +23,15 @@
         tools:layout="@layout/fragment_my_settings" >
         <action
             android:id="@+id/action_setting2main"
+            app:destination="@id/mainFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="edu.gvsu.cis.conversioncalculator.HistoryFragment"
+        android:label="fragment_history_list"
+        tools:layout="@layout/fragment_history_list" >
+        <action
+            android:id="@+id/action_history2main"
             app:destination="@id/mainFragment2" />
     </fragment>
 </navigation>

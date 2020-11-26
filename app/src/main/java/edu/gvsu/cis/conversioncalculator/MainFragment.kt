@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import edu.gvsu.cis.conversioncalculator.dummy.HistoryContent
+import edu.gvsu.cis.conversioncalculator.dummy.HistoryContent.addItem
 import kotlinx.android.synthetic.main.fragment_main.*
+import org.joda.time.DateTime
 
 /**
  * A simple [Fragment] subclass.
@@ -44,6 +47,15 @@ class MainFragment : Fragment() {
             this.mode = Mode.valueOf(z.mode)
             calculator_title.text = "$mode Converter"
         })
+        viewModel.selected.observe(this.viewLifecycleOwner, Observer { z ->
+            from_field.setText(z.fromVal.toString())
+            from_units.text = z.fromUnits
+            to_field.setText(z.toVal.toString())
+            to_units.text = z.toUnits
+            this.mode = Mode.valueOf(z.mode)
+            calculator_title.text = "$mode Converter"
+        })
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -122,6 +134,12 @@ class MainFragment : Fragment() {
                     val dVal = `val`.toDouble()
                     val cVal: Double = UnitsConverter.convert(dVal, fUnits, tUnits)
                     dest.setText(java.lang.Double.toString(cVal))
+                    val item = HistoryContent.HistoryItem(
+                        dVal, cVal, mode.toString(),
+                        to_units.getText().toString(), from_units.getText().toString(),
+                        DateTime.now()
+                    )
+                    addItem(item)
                 }
                 MainFragment.Mode.Volume -> {
                     val vtUnits: UnitsConverter.VolumeUnits
@@ -136,6 +154,12 @@ class MainFragment : Fragment() {
                     val vdVal = `val`.toDouble()
                     val vcVal: Double = UnitsConverter.convert(vdVal, vfUnits, vtUnits)
                     dest.setText(java.lang.Double.toString(vcVal))
+                    val item = HistoryContent.HistoryItem(
+                        vdVal, vcVal, mode.toString(),
+                        to_units.getText().toString(), from_units.getText().toString(),
+                        DateTime.now()
+                    )
+                    addItem(item)
                 }
             }
         }
@@ -160,6 +184,10 @@ class MainFragment : Fragment() {
         if (item.itemId == R.id.action_settings) {
             viewModel.settings.value = CalculatorDataViewModel.UnitSettings(mode.toString(), to_units.text.toString(), from_units.text.toString())
             findNavController().navigate(R.id.action_main2settings)
+            return true
+        }
+        else if (item.itemId == R.id.action_history) {
+            findNavController().navigate(R.id.action_main2history)
             return true
         }
         return false
