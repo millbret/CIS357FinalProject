@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment2">
+    <fragment
+        android:id="@+id/mainFragment2"
+        android:name="edu.gvsu.cis.conversioncalculator.MainFragment"
+        android:label="activity_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_main2settings"
+            app:destination="@id/mySettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mySettingsFragment"
+        android:name="edu.gvsu.cis.conversioncalculator.MySettingsFragment"
+        android:label="activity_my_settings"
+        tools:layout="@layout/fragment_my_settings" >
+        <action
+            android:id="@+id/action_setting2main"
+            app:destination="@id/mainFragment2" />
+    </fragment>
+</navigation>

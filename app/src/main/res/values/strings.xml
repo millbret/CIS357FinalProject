@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">ConversionCalculator</string>
+    <string name="calculator_length_title">Length Converter</string>
+    <string name="caclulator_volume_title">Volume Converter</string>
+    <string name="button_calc_label">Calculate</string>
+    <string name="button_clear_label">Clear</string>
+    <string name="button_mode_label">Mode</string>
+    <string name="from_hint">Enter from value</string>
+    <string name="to_hint">Enter to value</string>
+    <string name="title_activity_my_settings">Settings</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="menu_settings">Settings</string>
+    <string name="from_label">From</string>
+    <string name="to_label">To</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
