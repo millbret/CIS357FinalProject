@@ -39,6 +39,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(CalculatorDataViewModel::class.java)
         viewModel.settings.observe(this.viewLifecycleOwner, Observer { z ->
