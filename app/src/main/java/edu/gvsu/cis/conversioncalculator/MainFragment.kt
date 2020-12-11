@@ -1,6 +1,7 @@
 package edu.gvsu.cis.conversioncalculator
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import edu.gvsu.cis.conversioncalculator.dummy.HistoryContent
 import edu.gvsu.cis.conversioncalculator.dummy.HistoryContent.addItem
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -22,7 +25,7 @@ import org.joda.time.DateTime
 class MainFragment : Fragment() {
 
     lateinit var viewModel: CalculatorDataViewModel
-
+    private lateinit var mInterstitialAd: InterstitialAd
     private enum class Mode {
         Length, Volume
     }
@@ -34,6 +37,9 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        mInterstitialAd = InterstitialAd(getContext())
+        mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
@@ -67,6 +73,12 @@ class MainFragment : Fragment() {
 
         // convert when calc button tapped
         button_calc.setOnClickListener {
+            if (mInterstitialAd.isLoaded) {
+                mInterstitialAd.show()
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.")
+                mInterstitialAd.loadAd(AdRequest.Builder().build())
+            }
             doConversion()
         }
 
