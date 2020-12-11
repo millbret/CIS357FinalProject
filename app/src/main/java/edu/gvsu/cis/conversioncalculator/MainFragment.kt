@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.AdView
 import edu.gvsu.cis.conversioncalculator.dummy.HistoryContent
 import edu.gvsu.cis.conversioncalculator.dummy.HistoryContent.addItem
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -22,6 +25,7 @@ import org.joda.time.DateTime
 class MainFragment : Fragment() {
 
     lateinit var viewModel: CalculatorDataViewModel
+    lateinit var mAdView:AdView
 
     private enum class Mode {
         Length, Volume
@@ -34,8 +38,13 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_main, container, false);
+        MobileAds.initialize(getContext()){}
+
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -62,6 +71,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mAdView = requireView().findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
         // set initial units.
         from_units.text = UnitsConverter.LengthUnits.Meters.toString()
         to_units.text = UnitsConverter.LengthUnits.Yards.toString()

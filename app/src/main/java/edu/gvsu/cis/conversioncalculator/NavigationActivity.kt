@@ -8,16 +8,11 @@ import com.google.android.gms.ads.MobileAds
 
 class NavigationActivity : AppCompatActivity() {
 
-    lateinit var mAdView:AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navigation)
 
-        MobileAds.initialize(this){}
-
-        mAdView = findViewById(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
     }
+
 }
